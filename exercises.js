@@ -319,23 +319,152 @@
 
 // const finalGrades = students.map((student) => {
 //   const firstSecondProjects = (student.firstProject + student.secondProject) / 2 * 0.4;
-//   const finalExamGrade = student.finalExam * 0.6;  
+//   const finalExamGrade = student.finalExam * 0.6;
 //   const finalGrades = firstSecondProjects + finalExamGrade;
 //   return { name: student.name, finalGrade: finalGrades};
-  
+
 // });
 // console.log(JSON.stringify(finalGrades));
 
 const menu = [
-  { name: 'Carrots', calories: 150 },
-  { name: 'Steak', calories: 350 },
-  { name: 'Broccoli', calories: 120 },
-  { name: 'Chicken', calories: 250 },
-  { name: 'Pizza', calories: 520 }
+  { name: "Carrots", calories: 150 },
+  { name: "Steak", calories: 350 },
+  { name: "Broccoli", calories: 120 },
+  { name: "Chicken", calories: 250 },
+  { name: "Pizza", calories: 520 },
 ];
 
-const averageCalories = menu.reduce((accumulator,current) => {
-    return accumulator = accumulator + current.calories; 
-}, 0) / menu.length;
+// calculate average calories
+// const averageCalories = menu.reduce((accumulator,current) => {
+//     return accumulator = accumulator + current.calories;
+// }, 0) / menu.length;
 
-console.log(averageCalories); // 278
+// console.log(averageCalories); // 278
+
+// const string1 = "apple";
+// const string2 = "banana";
+
+// const result = string1.localeCompare(string2);
+
+// if (result < 0) {
+//   console.log(`${string1} comes before ${string2}`);
+// } else if (result > 0) {
+//   console.log(`${string1} comes after ${string2}`);
+// } else {
+//   console.log(`${string1} and ${string2} are equal`);
+// }
+
+// function task1(callback) {
+//   setTimeout(() => {
+//     console.log("task 1 complete!");
+//     callback();
+//   }, 2000);
+// }
+
+// function task2(callback) {
+//   setTimeout(() => {
+//     console.log("task 2 complete");
+//     callback();
+//   }, 1000);
+// }
+
+// function task3(callback) {
+//   setTimeout(function () {
+//     console.log("task 3 complete!");
+//     callback();
+//   }, 3000);
+// }
+
+// function task4(callback) {
+//   setTimeout(function () {
+//     console.log("task 4 complete!");
+//     callback();
+//   }, 2000);
+// }
+// // Callback hell demo (in order to write asynchronou code)
+// task1(() => {
+//   task2(() => {
+//     task3(() => {
+//       task4(() => console.log("Tasks complete"));
+//     });
+//   });
+// });
+// console.log("all tasks complete");
+
+// Implementing Promises
+
+function walkDog() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const dogWalked = true;
+      if (dogWalked) {
+        resolve("You walk the dog.");
+      } else {
+        reject("You didn't walk the dog!");
+      }
+    }, 1500);
+  });
+}
+
+function cleanKitch() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const kitchenCleaned = false;
+      if (kitchenCleaned) {
+        resolve("You clean the kitchen.");
+      } else {
+        reject("You didn't clean the kitchen!");
+      }
+    }, 2500);
+  });
+}
+
+function takeOutTrash() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const trashTakenOut = true;
+      if (trashTakenOut) {
+        resolve("You take out the trash.");
+      } else {
+        reject("You didn't take out the trash!");
+      }
+    }, 500);
+  });
+}
+
+// walkDog()
+//   .then((value) => {
+//     console.log(value);
+//     return cleanKitch();
+//   })
+//   .then((value) => {
+//     console.log(value);
+//     return takeOutTrash();
+//   })
+//   .then((value) => {
+//     console.log(value);
+//     console.log("You finished");
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+// Async & Await
+async function doChores() {
+  try {
+    const walkDogResult = await walkDog();
+    console.log(walkDogResult);
+
+    const cleanKitchResult = await cleanKitch();
+    console.log(cleanKitchResult);
+
+    const takeOutTrashResult = await takeOutTrash();
+    console.log(takeOutTrashResult);
+
+    console.log("You finished all the chores!");
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+doChores();
