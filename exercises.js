@@ -186,8 +186,6 @@
 // Make your program count the number of words in the string.
 // Make your program count the number of times the Latin word et appears.*/
 
-// const longText = `Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.`;
-
 // const wordArray = longText.split(/\s+/);
 // const wordCount = wordArray.length;
 // console.log(`The number of words in this article is:  ${wordCount}`);
@@ -326,13 +324,13 @@
 // });
 // console.log(JSON.stringify(finalGrades));
 
-const menu = [
-  { name: "Carrots", calories: 150 },
-  { name: "Steak", calories: 350 },
-  { name: "Broccoli", calories: 120 },
-  { name: "Chicken", calories: 250 },
-  { name: "Pizza", calories: 520 },
-];
+// const menu = [
+//   { name: "Carrots", calories: 150 },
+//   { name: "Steak", calories: 350 },
+//   { name: "Broccoli", calories: 120 },
+//   { name: "Chicken", calories: 250 },
+//   { name: "Pizza", calories: 520 },
+// ];
 
 // calculate average calories
 // const averageCalories = menu.reduce((accumulator,current) => {
@@ -393,44 +391,44 @@ const menu = [
 
 // Implementing Promises
 
-function walkDog() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const dogWalked = true;
-      if (dogWalked) {
-        resolve("You walk the dog.");
-      } else {
-        reject("You didn't walk the dog!");
-      }
-    }, 1500);
-  });
-}
+// function walkDog() {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       const dogWalked = true;
+//       if (dogWalked) {
+//         resolve("You walk the dog.");
+//       } else {
+//         reject("You didn't walk the dog!");
+//       }
+//     }, 1500);
+//   });
+// }
 
-function cleanKitch() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const kitchenCleaned = false;
-      if (kitchenCleaned) {
-        resolve("You clean the kitchen.");
-      } else {
-        reject("You didn't clean the kitchen!");
-      }
-    }, 2500);
-  });
-}
+// function cleanKitch() {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       const kitchenCleaned = false;
+//       if (kitchenCleaned) {
+//         resolve("You clean the kitchen.");
+//       } else {
+//         reject("You didn't clean the kitchen!");
+//       }
+//     }, 2500);
+//   });
+// }
 
-function takeOutTrash() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const trashTakenOut = true;
-      if (trashTakenOut) {
-        resolve("You take out the trash.");
-      } else {
-        reject("You didn't take out the trash!");
-      }
-    }, 500);
-  });
-}
+// function takeOutTrash() {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       const trashTakenOut = true;
+//       if (trashTakenOut) {
+//         resolve("You take out the trash.");
+//       } else {
+//         reject("You didn't take out the trash!");
+//       }
+//     }, 500);
+//   });
+// }
 
 // walkDog()
 //   .then((value) => {
@@ -450,21 +448,65 @@ function takeOutTrash() {
 //   });
 
 // Async & Await
-async function doChores() {
-  try {
-    const walkDogResult = await walkDog();
-    console.log(walkDogResult);
+// async function doChores() {
+//   try {
+//     const walkDogResult = await walkDog();
+//     console.log(walkDogResult);
 
-    const cleanKitchResult = await cleanKitch();
-    console.log(cleanKitchResult);
+//     const cleanKitchResult = await cleanKitch();
+//     console.log(cleanKitchResult);
 
-    const takeOutTrashResult = await takeOutTrash();
-    console.log(takeOutTrashResult);
+//     const takeOutTrashResult = await takeOutTrash();
+//     console.log(takeOutTrashResult);
 
-    console.log("You finished all the chores!");
-  } catch (error) {
-    console.error(error);
+//     console.log("You finished all the chores!");
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
+// doChores();
+
+// A helper functin to remove all the letters
+// function clearString(str, caps) {
+//   const result = [];
+//   [...str].forEach((letter) => {
+//     if (caps.includes(letter)) {
+//       result.push(letter);
+//     }
+//   });
+//   return result;
+// }
+
+function isBalanced(str, caps) {
+  const filteredStr = [...str].filter((cap) => caps.includes(cap)); // Extracting all the cap from the string array (filtering out all the letters)
+  if (filteredStr.length % 2) return false; // if the length of the filtered string is an odd number, we know that it's unbalanced, hence return false.
+
+  for (let i = 0; i < filteredStr.length; i++) {
+    // iterating over the filtered string
+    const [first, second, last] = [
+      filteredStr[i], // first cap
+      filteredStr[i + 1], // second cap
+      filteredStr[filteredStr.length - 1], // last cap
+    ];
+    if (caps.includes(first + second)) {
+      filteredStr.splice(i, 2); // starting from position i and from there we remove two items
+      i--; // Go back to the very beginning of the array to check
+      continue; // if this condition is truthy, we don't need to check the next if condition. The code still works without this continue, but it will take more time to check unnecessary condition
+    }
+    if (caps.includes(first + last)) {
+      filteredStr.splice(i, 1); // starting from position i and from there we remove one item
+      filteredStr.splice(-1, 1); // starting from the last position and from there we remove one item
+      i--; // Go back to the very beginning of the array to check
+    }
   }
+  return !filteredStr.length; // If the final filtered array is empty, the input string is balanced; otherwise, it is not.
+  // return filteredStr.length === 0;
 }
 
-doChores();
+isBalanced("(Sensei says yes!)", "()");
+isBalanced("(Sensei says no!", "()");
+isBalanced("(Sensei [says] yes!)", "()[]");
+isBalanced("(Sensei [says) no!]", "()[]");
+isBalanced("Sensei says -yes-!", "--");
+isBalanced("Sensei -says no!", "--");
