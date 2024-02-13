@@ -478,35 +478,57 @@
 //   return result;
 // }
 
-function isBalanced(str, caps) {
-  const filteredStr = [...str].filter((cap) => caps.includes(cap)); // Extracting all the cap from the string array (filtering out all the letters)
-  if (filteredStr.length % 2) return false; // if the length of the filtered string is an odd number, we know that it's unbalanced, hence return false.
+// function isBalanced(str, caps) {
+//   const filteredStr = [...str].filter((cap) => caps.includes(cap)); // Extracting all the cap from the string array (filtering out all the letters)
+//   if (filteredStr.length % 2) return false; // if the length of the filtered string is an odd number, we know that it's unbalanced, hence return false.
 
-  for (let i = 0; i < filteredStr.length; i++) {
-    // iterating over the filtered string
-    const [first, second, last] = [
-      filteredStr[i], // first cap
-      filteredStr[i + 1], // second cap
-      filteredStr[filteredStr.length - 1], // last cap
-    ];
-    if (caps.includes(first + second)) {
-      filteredStr.splice(i, 2); // starting from position i and from there we remove two items
-      i--; // Go back to the very beginning of the array to check
-      continue; // if this condition is truthy, we don't need to check the next if condition. The code still works without this continue, but it will take more time to check unnecessary condition
-    }
-    if (caps.includes(first + last)) {
-      filteredStr.splice(i, 1); // starting from position i and from there we remove one item
-      filteredStr.splice(-1, 1); // starting from the last position and from there we remove one item
-      i--; // Go back to the very beginning of the array to check
+//   for (let i = 0; i < filteredStr.length; i++) {
+//     // iterating over the filtered string
+//     const [first, second, last] = [
+//       filteredStr[i], // first cap
+//       filteredStr[i + 1], // second cap
+//       filteredStr[filteredStr.length - 1], // last cap
+//     ];
+//     if (caps.includes(first + second)) {
+//       filteredStr.splice(i, 2); // starting from position i and from there we remove two items
+//       i--; // Go back to the very beginning of the array to check
+//       continue; // if this condition is truthy, we don't need to check the next if condition. The code still works without this continue, but it will take more time to check unnecessary condition
+//     }
+//     if (caps.includes(first + last)) {
+//       filteredStr.splice(i, 1); // starting from position i and from there we remove one item
+//       filteredStr.splice(-1, 1); // starting from the last position and from there we remove one item
+//       i--; // Go back to the very beginning of the array to check
+//     }
+//   }
+//   return !filteredStr.length; // If the final filtered array is empty, the input string is balanced; otherwise, it is not.
+//   // return filteredStr.length === 0;
+// }
+
+// isBalanced("(Sensei says yes!)", "()");
+// isBalanced("(Sensei says no!", "()");
+// isBalanced("(Sensei [says] yes!)", "()[]");
+// isBalanced("(Sensei [says) no!]", "()[]");
+// isBalanced("Sensei says -yes-!", "--");
+// isBalanced("Sensei -says no!", "--");
+
+function scramble(str1, str2) {
+  const frequencyMap = {};
+
+  // Fill frequencyMap with characters from str1
+  for (const char of str1) {
+    if (!frequencyMap[char]) {
+      frequencyMap[char] = 0;
+      frequencyMap[char]++;
     }
   }
-  return !filteredStr.length; // If the final filtered array is empty, the input string is balanced; otherwise, it is not.
-  // return filteredStr.length === 0;
+  // Check each character in str2 against frequencyMap
+  for (const char of str2) {
+    if (!frequencyMap[char]) return false; // Character not found or insufficient frequency
+    frequencyMap[char]--;
+    console.log(frequencyMap);
+  }
+  return true;
 }
-
-isBalanced("(Sensei says yes!)", "()");
-isBalanced("(Sensei says no!", "()");
-isBalanced("(Sensei [says] yes!)", "()[]");
-isBalanced("(Sensei [says) no!]", "()[]");
-isBalanced("Sensei says -yes-!", "--");
-isBalanced("Sensei -says no!", "--");
+console.log(scramble("cedewaraaossoqqyt", "codewars"));
+console.log(scramble("katas", "steak"));
+console.log(scramble("scriptjavx", "javascript"));
